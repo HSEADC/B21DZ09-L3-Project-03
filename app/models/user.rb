@@ -10,4 +10,8 @@ class User < ApplicationRecord
   def is_master?
     is_master
   end
+
+  def master_id
+    master&.id
+  end
 end

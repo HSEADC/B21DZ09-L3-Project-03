@@ -73,20 +73,19 @@ def upload_random_feedback_image
 end
 
 def create_tattoos
-  masters = Master.all
+  users = User.where(is_master: true).to_a
 
-  masters.each do |master|
+  users.each do |user|
     2.times do
-      tattoo = Tattoo.create(
+      tattoo = Tattoo.create!(
         title: Faker::Games::WorldOfWarcraft.hero,
         part_list: Faker::Games::Witcher.school,
         style_list: Faker::Games::Witcher.sign,
-        master_id: master.id,
-        tattoo_image: upload_random_image,
-        user_id: master.user.id,
+        user_id: user.id,
+        tattoo_image: upload_random_image
       )
 
-      puts "Tattoo [#{tattoo.id}] for Master #{tattoo.master.id} just created. Title: #{tattoo.title}, Tags: #{tattoo.part_list} + #{tattoo.style_list}"
+      puts "Tattoo with id #{tattoo.id} for user with id #{tattoo.user.id} just created. Title: #{tattoo.title}, Specialization: #{tattoo.specialization}"
     end
   end
 end

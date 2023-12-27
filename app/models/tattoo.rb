@@ -2,7 +2,7 @@ class Tattoo < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  belongs_to :master
+  belongs_to :master, class_name: 'User', foreign_key: 'user_id', optional: true
   belongs_to :user, optional: true
 
   mount_uploader :tattoo_image, TattooImageUploader
